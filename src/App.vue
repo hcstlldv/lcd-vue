@@ -1,7 +1,9 @@
 <template>
   <h1>Lemoncode Master Vue Project</h1>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <router-view />
+  <keep-alive>
+    <router-view />
+  </keep-alive>
 </template>
 
 <script>
