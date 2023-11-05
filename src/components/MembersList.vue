@@ -1,5 +1,14 @@
 <template>
   <main>
+    <header>
+      <input
+        v-model="organizationToSearch"
+        placeholder="Enter organization name"
+      />
+      <button @click="($event) => searchOrganization(organizationToSearch)">
+        Search
+      </button>
+    </header>
     <section v-if="members.length">
       <article
         v-for="member in members"
@@ -23,8 +32,8 @@ export default {
     organization: String,
   },
   methods: {
-    fetchMembers() {
-      const url = `https://api.github.com/orgs/${this.organization}/members`;
+    fetchMembers(organizationName) {
+      const url = `https://api.github.com/orgs/${organizationName}/members`;
       fetch(url)
         .then((response) => {
           if (response.ok) return response.json();
@@ -41,22 +50,27 @@ export default {
     selectMember() {
       // TODO redirect to detail
     },
+    searchOrganization(organizationToSearch) {
+      if (!organizationToSearch) return;
+      this.fetchMembers(organizationToSearch);
+    },
   },
   data() {
     return {
       members: [],
+      organizationToSearch: "lemoncode",
     };
   },
   watch: {
     organization(newOrganization, oldOrganization) {
       if (newOrganization !== oldOrganization) {
-        this.fetchMembers();
+        this.fetchMembers(newOrganization);
       }
     },
   },
 
   mounted() {
-    this.fetchMembers();
+    this.fetchMembers(this.organization);
   },
 };
 </script>
@@ -96,5 +110,55 @@ article p {
   font-size: 14px;
   margin: 0;
   text-transform: uppercase;
+}
+
+header {
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+header input {
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  caret-color: #64b687;
+  accent-color: #64b687;
+  outline-color: #64b687;
+}
+
+header button {
+  caret-color: #64b687;
+  accent-color: #64b687;
+  appearance: none;
+  background-color: #64b687;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 4px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+header button:hover {
+  background-color: #2c974b;
 }
 </style>
