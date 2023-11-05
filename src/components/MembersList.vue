@@ -47,8 +47,11 @@ export default {
           this.members = [];
         });
     },
-    selectMember() {
-      // TODO redirect to detail
+    selectMember(member) {
+      this.$router.push({
+        name: "MembersDetail",
+        params: { login: member.login },
+      });
     },
     searchOrganization(organizationToSearch) {
       if (!organizationToSearch) return;
@@ -68,9 +71,8 @@ export default {
       }
     },
   },
-
   mounted() {
-    this.fetchMembers(this.organization);
+    this.fetchMembers(this.organization ?? "lemoncode");
   },
 };
 </script>

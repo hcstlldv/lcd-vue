@@ -1,17 +1,12 @@
 <template>
   <h1>Lemoncode Master Vue Project</h1>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <MembersList organization="lemoncode" />
+  <router-view />
 </template>
 
 <script>
-import MembersList from "./components/MembersList.vue";
-
 export default {
   name: "App",
-  components: {
-    MembersList,
-  },
 };
 </script>
 
