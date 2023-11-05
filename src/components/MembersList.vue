@@ -67,13 +67,6 @@ export default {
       organizationToSearch: "lemoncode",
     };
   },
-  watch: {
-    organization(newOrganization, oldOrganization) {
-      if (newOrganization !== oldOrganization) {
-        this.fetchMembers(newOrganization);
-      }
-    },
-  },
   mounted() {
     this.fetchMembers(this.organization ?? "lemoncode");
   },
