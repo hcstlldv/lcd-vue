@@ -12,7 +12,7 @@ const router = createRouter({
       component: MembersList,
     },
     {
-      path: "/member/:login",
+      path: "/member/:organization/:login",
       name: "MembersDetail",
       component: MembersDetail,
       props: true,

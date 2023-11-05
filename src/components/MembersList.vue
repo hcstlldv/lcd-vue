@@ -50,7 +50,10 @@ export default {
     selectMember(member) {
       this.$router.push({
         name: "MembersDetail",
-        params: { login: member.login },
+        params: {
+          organization: this.organizationToSearch,
+          login: member.login,
+        },
       });
     },
     searchOrganization(organizationToSearch) {
